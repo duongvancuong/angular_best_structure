@@ -1,39 +1,79 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="app">
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html ng-app="app"> <!--<![endif]-->
+
 <head>
-    <base href="/">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    </head>
-    <body>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title ng-bind="title">Home</title>
 
-    <div class="container">
-        <nav class="navbar navbar-default" ng-include="'app/header/header.html'">
-        </nav>
-            <div ui-view></div>
-        </div>
+  <!-- build:css -->
+
+  <!-- endbuild -->
+
+</head>
+<body>
+
+  <!-- Template for authenticated user -->
+  <div ng-if="authService.user.enabled">
+    <!-- Header -->
+    <div ng-include="'app/partials/header.html'"></div>
+    <div class="lr-sub-navbar">
+      <div class="container"></div>
     </div>
+    <!-- End Header -->
+    <div class="clearfix"></div>
+    <!-- Start Content -->
+    <div class="container">
+      <div class="lr-content">
+        <div id="index-flash" flash-alert active-class="in alert" class="fade" duration="0">
+          <strong class="alert-heading"></strong>
+          <span class="alert-message">{{flash.message}}</span>
+        </div>
+        <div ui-view></div>
+      </div>
+    </div>
+    <!-- End Content -->
+    <div class="clearfix"></div>
+    <!-- loading indication -->
+    <div ng-if="showLoading" class="lr-loading" ng-class="{'show-nav': showNav}">
+      <div class="loading-container">
+        <div class="loading"></div>
+        <div id="loading-text">
+          <img src="images/onvoy-logo-color.png">
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div ng-include="'app/partials/footer.html'"></div>
+  </div>
 
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+  <!-- Git version -->
+  <div style="display:none;" ng-include="'version.html'"></div>
 
-    <script src="app/core/core.module.js"></script>
-    <script src="app/core/auth.service.js"></script>
+  <!-- build:js_lib min/layered_lib.js -->
+  <script src="assets/libs/angular/angular.min.js"></script>
+  <script src="assets/libs/angular/angular-cookies.min.js"></script>
+  <script src="assets/libs/angular/angular-messages.min.js"></script>
+  <script src="assets/libs/angular/angular-touch.min.js"></script>
+  <script src="assets/libs/angular/angular-ui-router.js"></script>
+  <script src="assets/libs/bootstrap/dist/js/boostrap.min.js"></script>
+  <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="assets/libs/ngstorage/ngStorage.js"></script>
+  <script src="assets/libs/lodash/dist/lodash.min.js"></script>
+  <!-- endbuild -->
 
-    <script src="app/header/header.module.js"></script>
-    <script src="app/header/header.controller.js"></script>
+  <!-- build:js_app min/layered_app.js -->
+  <!-- Main module -->
+  <script src="app/app.module.js"></script>
+  <script src="app/app.config.js"></script>
+  <script src="app/app.interceptor.js"></script>
 
-    <script src="app/login/login.module.js"></script>
-    <script src="app/login/login.config.js"></script>
-    <script src="app/login/login.controller.js"></script>
-
-    <script src="app/landing/landing.module.js"></script>
-    <script src="app/landing/landing.config.js"></script>
-    <script src="app/landing/landing.controller.js"></script>
-
-    <script src="app/app.module.js"></script>
-    <script src="app/app.config.js"></script>
-
+  <!-- endbuild -->
 </body>
 </html>
